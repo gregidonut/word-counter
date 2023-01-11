@@ -33,7 +33,7 @@ func count(r io.Reader, countLines bool) int {
 	// Defining a counter
 	wc := 0
 
-	// For every word scanned, increment the counter
+	// For every word or line scanned, increment the counter
 	for scanner.Scan() {
 		wc++
 	}
