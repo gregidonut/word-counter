@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// Test_count tests the count function set to count words
 func Test_count(t *testing.T) {
 	type args struct {
 		r io.Reader
