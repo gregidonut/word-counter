@@ -37,7 +37,8 @@ func count(r io.Reader, countLines, countBytes bool) int {
 	// If the countBytes flag is set, we use the Bytes() method from teh bufio scanner struct
 	// to count bytes when the scanner.Scan() is looped over
 	if countBytes {
-		scanner.Bytes()
+		// split with bufio.ScanBytes function to count how many bytes there are
+		scanner.Split(bufio.ScanBytes)
 	}
 
 	// Defining a counter
