@@ -12,6 +12,7 @@ func main() {
 	// define flags
 	flag.Bool("l", false, "count lines")
 	flag.Bool("b", false, "count bytes")
+	flag.Bool("file", false, "Specify file name to count words from")
 
 	flag.Parse()
 	usedFlags := make(map[string]bool)
@@ -19,9 +20,22 @@ func main() {
 		usedFlags[f.Name] = true
 	})
 
+	files := make([]string, 0)
+	if usedFlags["file"] {
+		files = append(files, flag.Args()...)
+	}
+
+	if err := run(usedFlags["l"], usedFlags["b"], files); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func run(countLines, countBytes bool, files []string) error {
 	// Calling the count function to count the number of words
 	// received from the Standard Input and printing it out
-	fmt.Println(count(os.Stdin, usedFlags["l"], usedFlags["b"]))
+	fmt.Println(count(os.Stdin, countLines, countBytes))
+	return nil
 }
 
 func count(r io.Reader, countLines, countBytes bool) int {
