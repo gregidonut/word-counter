@@ -10,22 +10,18 @@ import (
 
 func main() {
 	// define flags
-	flag.Bool("l", false, "count lines")
-	flag.Bool("b", false, "count bytes")
-	flag.Bool("file", false, "Specify file name to count words from")
+	list := flag.Bool("l", false, "count lines")
+	bytes := flag.Bool("b", false, "count bytes")
+	file := flag.Bool("file", false, "Specify file name to count words from")
 
 	flag.Parse()
-	usedFlags := make(map[string]bool)
-	flag.Visit(func(f *flag.Flag) {
-		usedFlags[f.Name] = true
-	})
 
 	files := make([]string, 0)
-	if usedFlags["file"] {
+	if *file {
 		files = append(files, flag.Args()...)
 	}
 
-	if err := run(usedFlags["l"], usedFlags["b"], files); err != nil {
+	if err := run(*list, *bytes, files); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
