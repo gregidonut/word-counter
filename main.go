@@ -33,14 +33,6 @@ func run(countLines, countBytes bool, files []string) error {
 }
 
 func actualRun(w io.Writer, countLines, countBytes bool, files []string) error {
-	// should check if there are any arguments at
-	// all coz program cant do anything without nothing to count
-	if len(os.Args) == 1 {
-		// this message should be flags.Usage()
-		// but temporarily a one line string to simplify testing
-		return fmt.Errorf("please provide arguments")
-	}
-
 	if len(files) > 0 {
 		total := 0
 		for _, v := range files {
