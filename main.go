@@ -9,18 +9,19 @@ import (
 )
 
 func main() {
-	// Defining a boolean flag -l to count lines instead of words
-	lines := flag.Bool("l", false, "count lines")
+	// define flags
+	flag.Bool("l", false, "count lines")
+	flag.Bool("b", false, "count bytes")
 
-	// Defining a boolean flag -b to count bytes
-	bytes := flag.Bool("b", false, "count bytes")
-
-	// Parsing the flags provided by the user
 	flag.Parse()
+	usedFlags := make(map[string]bool)
+	flag.Visit(func(f *flag.Flag) {
+		usedFlags[f.Name] = true
+	})
 
 	// Calling the count function to count the number of words
 	// received from the Standard Input and printing it out
-	fmt.Println(count(os.Stdin, *lines, *bytes))
+	fmt.Println(count(os.Stdin, usedFlags["l"], usedFlags["b"]))
 }
 
 func count(r io.Reader, countLines, countBytes bool) int {
