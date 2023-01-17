@@ -32,8 +32,22 @@ func main() {
 }
 
 func run(countLines, countBytes bool, files []string) error {
-	// Calling the count function to count the number of words
-	// received from the Standard Input and printing it out
+	if len(files) > 0 {
+		total := 0
+		for _, v := range files {
+			fileBytes, err := os.OpenFile(v, os.O_RDONLY, 0755)
+			if err != nil {
+				return err
+			}
+
+			byteCount := count(fileBytes, countLines, countBytes)
+			total += byteCount
+			fmt.Printf("%s: %d\n", v, byteCount)
+		}
+		fmt.Printf("total: %d\n", total)
+		return nil
+	}
+
 	fmt.Println(count(os.Stdin, countLines, countBytes))
 	return nil
 }
