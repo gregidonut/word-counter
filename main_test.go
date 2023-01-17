@@ -39,7 +39,7 @@ func Test_count(t *testing.T) {
 				r:          bytes.NewBufferString("word1 word2 word3\nline2\nline3 word1"),
 				countBytes: true,
 			},
-			want: 36,
+			want: 35,
 		},
 	}
 	for _, tt := range tests {
