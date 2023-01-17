@@ -13,7 +13,7 @@ func main() {
 	lines := flag.Bool("l", false, "count lines")
 
 	// Defining a boolean flag -b to count bytes
-	bytes := flag.Bool("b", false, "count lines")
+	bytes := flag.Bool("b", false, "count bytes")
 
 	// Parsing the flags provided by the user
 	flag.Parse()
