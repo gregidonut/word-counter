@@ -32,6 +32,11 @@ func main() {
 }
 
 func run(countLines, countBytes bool, files []string) error {
+	// injecting dependency for easier testing
+	return actualRun(os.Stdout, countLines, countBytes, files)
+}
+
+func actualRun(w io.Writer, countLines, countBytes bool, files []string) error {
 	// should check if there are any arguments at
 	// all coz program cant do anything without nothing to count
 	if len(os.Args) == 1 {
@@ -50,13 +55,13 @@ func run(countLines, countBytes bool, files []string) error {
 
 			byteCount := count(fileBytes, countLines, countBytes)
 			total += byteCount
-			fmt.Printf("%s: %d\n", v, byteCount)
+			fmt.Fprintf(w, "%s: %d\n", v, byteCount)
 		}
-		fmt.Printf("total: %d\n", total)
+		fmt.Fprintf(w, "total: %d\n", total)
 		return nil
 	}
 
-	fmt.Println(count(os.Stdin, countLines, countBytes))
+	fmt.Fprintln(w, count(os.Stdin, countLines, countBytes))
 	return nil
 }
 
